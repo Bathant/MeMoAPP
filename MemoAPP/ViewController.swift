@@ -8,20 +8,42 @@
 
 import UIKit
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINavigationControllerDelegate,UITextFieldDelegate{
+class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINavigationControllerDelegate,UITextFieldDelegate {
     
+    @IBOutlet weak var ShareVar: UIBarButtonItem!
+    @IBOutlet weak var NavBar: UINavigationBar!
+    @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var BottomTxtField: UITextField!
     
     @IBOutlet weak var TopTxtField: UITextField!
     
     @IBOutlet weak var ImagePickerView: UIImageView!
     @IBOutlet weak var CamerBTN: UIBarButtonItem!
+    
+    
+    struct MeMe {
+        
+       var Toptxt : String?
+       var Btmtxt : String?
+       var OriginalImage : UIImage!
+       var MemeImage : UIImage!
+        init(tptxt : String , btmtxt : String , Oimg : UIImage , Mimg : UIImage ) {
+            Toptxt = tptxt
+            Btmtxt = btmtxt
+            OriginalImage = Oimg
+            MemeImage = Mimg
+        }
+        
+    }
+    
+    
+    
     let memetextatt : [String : Any ]
         = [NSStrokeColorAttributeName : UIColor.black ,
            NSForegroundColorAttributeName : UIColor.white ,
            NSFontAttributeName : UIFont(name : "HelveticaNeue-CondensedBlack" , size : 40) as Any ,
-           
-           NSStrokeWidthAttributeName : -1.0]
+           NSBackgroundColorAttributeName : UIColor.clear ,
+           NSStrokeWidthAttributeName : -3.0]
     
     
     override func viewDidLoad() {
@@ -34,19 +56,29 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         BottomTxtField.defaultTextAttributes = memetextatt
         TopTxtField.textAlignment = .center
         BottomTxtField.textAlignment = .center
-        TopTxtField.backgroundColor = .clear
-        BottomTxtField.backgroundColor = UIColor.clear
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if ImagePickerView.image == nil {
+            ShareVar.isEnabled = false
+        }
+        else{
+            ShareVar.isEnabled = true
+        }
         subscribeToKeyNotif()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UnsubscribeToKeyNotif()
     }
-    
+    func save ()
+    {
+        let memeimage = generateMemeImage()
+        let meme = MeMe(tptxt: TopTxtField.text!, btmtxt: BottomTxtField.text!, Oimg: ImagePickerView.image!, Mimg: memeimage)
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
@@ -93,6 +125,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         NotificationCenter.default.addObserver(self, selector: #selector(self.KeyboardwilShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.KeyboardwilHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
+    @IBAction func ShareBtn(_ sender: Any) {
+        
+        let meme = generateMemeImage()
+        let act = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
+        self.present(act, animated: true, completion: {
+            self.save()
+        })
+        
+        
+    }
     func UnsubscribeToKeyNotif()
     {
         NotificationCenter.default.removeObserver(self,  name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -107,6 +149,19 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         return keySize.cgRectValue.height
         
         
+    }
+    func generateMemeImage () ->UIImage
+    {
+        toolbar.isHidden = true
+        NavBar.isHidden = true
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        toolbar.isHidden = false
+        NavBar.isHidden = false
+        return memedImage
     }
     
     
