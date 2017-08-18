@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,15 +19,35 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AcG-a7-Q9I">
-                                <rect key="frame" x="20" y="54" width="374" height="576"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="20" width="343" height="541"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="pAN-Yw-jAH">
+                                <rect key="frame" x="16" y="80" width="343" height="400"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="top" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNU-t8-hmg">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="17"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bottom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HkS-9c-mnc">
+                                        <rect key="frame" x="0.0" y="383" width="343" height="17"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="s66-fo-wWA">
-                                <rect key="frame" x="0.0" y="669" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="600" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Album " id="qIh-dT-ISM">
                                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
@@ -45,39 +65,27 @@
                                 </items>
                                 <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Bottom" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AZa-1h-xBd">
-                                <rect key="frame" x="143" y="577" width="128" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Top" borderStyle="roundedRect" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="oC4-q8-PBp">
-                                <rect key="frame" x="143" y="118" width="128" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="s66-fo-wWA" firstAttribute="top" secondItem="pAN-Yw-jAH" secondAttribute="bottom" constant="120" id="6gs-d5-5AX"/>
                             <constraint firstItem="AcG-a7-Q9I" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ALy-BC-Jl6"/>
                             <constraint firstItem="s66-fo-wWA" firstAttribute="top" secondItem="AcG-a7-Q9I" secondAttribute="bottom" constant="39" id="Co5-Lx-r8U"/>
-                            <constraint firstItem="AcG-a7-Q9I" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="34" id="ENO-xd-rbe"/>
+                            <constraint firstItem="AcG-a7-Q9I" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ENO-xd-rbe"/>
                             <constraint firstItem="AcG-a7-Q9I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Hzc-2G-B3j"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s66-fo-wWA" secondAttribute="bottom" constant="23" id="PQf-9J-Oof"/>
                             <constraint firstAttribute="trailing" secondItem="s66-fo-wWA" secondAttribute="trailing" id="ZMv-08-65P"/>
                             <constraint firstItem="s66-fo-wWA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cde-ff-YQq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pAN-Yw-jAH" secondAttribute="trailing" id="kgp-z4-QIN"/>
+                            <constraint firstItem="pAN-Yw-jAH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="mAK-f9-yfq"/>
+                            <constraint firstItem="pAN-Yw-jAH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="tg0-Wz-INO"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="BotmTxtF" destination="AZa-1h-xBd" id="MML-Jw-AXt"/>
+                        <outlet property="BottomTxtField" destination="HkS-9c-mnc" id="h6g-hY-fNK"/>
                         <outlet property="CamerBTN" destination="ST9-Y8-GBR" id="ohP-fR-UvY"/>
-                        <outlet property="ImagePickerView" destination="AcG-a7-Q9I" id="ObL-HX-Q87"/>
-                        <outlet property="TopTxtF" destination="oC4-q8-PBp" id="PiM-Vi-u3R"/>
+                        <outlet property="ImagePickerView" destination="AcG-a7-Q9I" id="LM6-FZ-kQV"/>
+                        <outlet property="TopTxtField" destination="gNU-t8-hmg" id="Ig2-cP-x4O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

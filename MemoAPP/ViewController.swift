@@ -10,40 +10,62 @@ import UIKit
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINavigationControllerDelegate,UITextFieldDelegate{
     
+    @IBOutlet weak var BottomTxtField: UITextField!
     
-    @IBOutlet weak var BotmTxtF: UITextField!
-    @IBOutlet weak var TopTxtF: UITextField!
+    @IBOutlet weak var TopTxtField: UITextField!
+    
     @IBOutlet weak var ImagePickerView: UIImageView!
     @IBOutlet weak var CamerBTN: UIBarButtonItem!
     let memetextatt : [String : Any ]
         = [NSStrokeColorAttributeName : UIColor.black ,
            NSForegroundColorAttributeName : UIColor.white ,
            NSFontAttributeName : UIFont(name : "HelveticaNeue-CondensedBlack" , size : 40) as Any ,
-            NSStrokeWidthAttributeName : -1.0]
-        override func viewDidLoad() {
+           
+           NSStrokeWidthAttributeName : -1.0]
+    
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         
+        BottomTxtField.delegate = self
+        TopTxtField.delegate = self
         CamerBTN.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-            BotmTxtF.defaultTextAttributes = memetextatt
-            TopTxtF.defaultTextAttributes = memetextatt
+        TopTxtField.defaultTextAttributes = memetextatt
+        BottomTxtField.defaultTextAttributes = memetextatt
+        TopTxtField.textAlignment = .center
+        BottomTxtField.textAlignment = .center
+        TopTxtField.backgroundColor = .clear
+        BottomTxtField.backgroundColor = UIColor.clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         subscribeToKeyNotif()
     }
-   
-   
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        TopTxtF.text = ""
-        BotmTxtF.text = ""
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UnsubscribeToKeyNotif()
     }
- /*
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        
+        
+        if textField.text == "top" || textField.text == "Bottom"
+        {
+            textField.text = ""
+        }
+    }
+    
+    //dismess keyboard on return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        BotmTxtF.resignFirstResponder()
-        TopTxtF.resignFirstResponder()
+        textField.resignFirstResponder()
+        
         return true
-    }*/
+    }
+    
     @IBAction func ToolPick(_ sender: Any) {
         
         let pickerImage = UIImagePickerController()
@@ -55,18 +77,33 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
     //move the view up when keyboard appears
     func KeyboardwilShow(notification : Notification)
     {
-        self.view.frame.origin.y = self.view.frame.origin.y - getKeyboardHeight(notification: notification)
+        print("this is the height of the view \(self.view.frame.origin.y)")
+        if self.view.frame.origin.y == 0 {
+        self.view.frame.origin.y -=  getKeyboardHeight(notification: notification)
+        }
+        
+        print("this is the new !!!!  height of the view \(self.view.frame.origin.y)")
     }
-    
+    func KeyboardwilHide(notification : Notification)
+    {
+        self.view.frame.origin.y =  0
+    }
     func subscribeToKeyNotif()
     {
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardwilShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.KeyboardwilShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.KeyboardwilHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
-    func getKeyboardHeight(notification : Notification) -> CGFloat
+    func UnsubscribeToKeyNotif()
+    {
+        NotificationCenter.default.removeObserver(self,  name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self,  name: Notification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func getKeyboardHeight(notification : Notification) -> CGFloat
     {
         let usrInfo = notification.userInfo
         let keySize = usrInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        
+        print("This is the keyboard Size :: \(keySize)")
         return keySize.cgRectValue.height
         
         
@@ -92,6 +129,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         self.dismiss(animated: true
             , completion: nil)
     }
-
+    
 }
 
