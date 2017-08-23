@@ -20,21 +20,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
     @IBOutlet weak var ImagePickerView: UIImageView!
     @IBOutlet weak var CamerBTN: UIBarButtonItem!
     
-    
-    struct MeMe {
-        
-       var Toptxt : String?
-       var Btmtxt : String?
-       var OriginalImage : UIImage!
-       var MemeImage : UIImage!
-        init(tptxt : String , btmtxt : String , Oimg : UIImage , Mimg : UIImage ) {
-            Toptxt = tptxt
-            Btmtxt = btmtxt
-            OriginalImage = Oimg
-            MemeImage = Mimg
-        }
-        
-    }
+
     
     
     
@@ -74,11 +60,24 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         super.viewWillDisappear(animated)
         UnsubscribeToKeyNotif()
     }
+    @IBAction func ReturnBtn(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func save ()
     {
         let memeimage = generateMemeImage()
         let meme = MeMe(tptxt: TopTxtField.text!, btmtxt: BottomTxtField.text!, Oimg: ImagePickerView.image!, Mimg: memeimage)
+        
+        let object = UIApplication.shared.delegate
+        let Appdelegate = object as! AppDelegate
+        Appdelegate.memes.append(meme)
+        print("The count of Object :: \(Appdelegate.memes.count)")
+       
+        
     }
+    
+  
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
@@ -131,6 +130,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate ,UINaviga
         let act = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
         self.present(act, animated: true, completion: {
             self.save()
+           
+            
         })
         
         
